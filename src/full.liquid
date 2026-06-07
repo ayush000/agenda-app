@@ -10,7 +10,7 @@
   }
   
   .section-container {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   
   .section-container:last-child {
@@ -18,60 +18,46 @@
   }
   
   .section-title {
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: #777777;
     border-bottom: 2px solid #e2e8f0;
     padding-bottom: 6px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
   
   .event-list {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 14px;
   }
   
   .event-item {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    gap: 16px;
   }
   
   .event-title {
-    font-size: 52px;
+    font-size: 53px;
     font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: #000000;
-  }
-  
-  .event-meta {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    flex-grow: 1;
   }
   
   .time-badge {
     background-color: #000000;
     color: #ffffff;
     padding: 3px 9px;
-    font-size: 18px;
+    font-size: 28px;
     font-weight: 800;
     border-radius: 4px;
-  }
-  
-  .status-badge {
-    border: 2px solid #000000;
-    color: #000000;
-    padding: 1px 9px;
-    font-size: 18px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .empty-state {
@@ -84,7 +70,7 @@
   }
   
   .empty-title {
-    font-size: 36px;
+    font-size: 50px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -95,23 +81,25 @@
   }
   
   .empty-desc {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 500;
     color: #666666;
   }
 </style>
 
-{% if today_events and today_events.size > 0 %}
-  {% if today_events.size == 1 %}
-    {% assign today_limit = 1 %}
-    {% assign tomorrow_limit = 2 %}
-  {% else %}
-    {% assign today_limit = 2 %}
-    {% assign tomorrow_limit = 1 %}
-  {% endif %}
+{% assign total_slots = 6 %}
+
+{% assign today_size = 0 %}
+{% if today_events %}
+  {% assign today_size = today_events.size %}
+{% endif %}
+
+{% if today_size >= total_slots %}
+  {% assign today_limit = total_slots %}
+  {% assign tomorrow_limit = 0 %}
 {% else %}
-  {% assign today_limit = 0 %}
-  {% assign tomorrow_limit = 2 %}
+  {% assign today_limit = today_size %}
+  {% assign tomorrow_limit = total_slots | minus: today_limit %}
 {% endif %}
 
 <div class="agenda-container">
@@ -122,13 +110,8 @@
       <div class="event-list">
         {% for event in today_events limit:today_limit %}
           <div class="event-item">
+            <span class="time-badge">{{ event.time }}</span>
             <div class="event-title">{{ event.title }}</div>
-            <div class="event-meta">
-              <span class="time-badge">{{ event.time }}</span>
-              {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
-                <span class="status-badge">{{ event.status }}</span>
-              {% endif %}
-            </div>
           </div>
         {% endfor %}
       </div>
@@ -142,13 +125,8 @@
       <div class="event-list">
         {% for event in tomorrow_events limit:tomorrow_limit %}
           <div class="event-item">
+            <span class="time-badge">{{ event.time }}</span>
             <div class="event-title">{{ event.title }}</div>
-            <div class="event-meta">
-              <span class="time-badge">{{ event.time }}</span>
-              {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
-                <span class="status-badge">{{ event.status }}</span>
-              {% endif %}
-            </div>
           </div>
         {% endfor %}
       </div>

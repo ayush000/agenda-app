@@ -15,7 +15,7 @@
   }
   
   .section-title {
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -33,12 +33,12 @@
   
   .event-item {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    gap: 12px;
   }
   
   .event-title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -46,32 +46,18 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  
-  .event-meta {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+    flex-grow: 1;
   }
   
   .time-badge {
     background-color: #000000;
     color: #ffffff;
     padding: 2px 6px;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 800;
     border-radius: 3px;
-  }
-  
-  .status-badge {
-    border: 2px solid #000000;
-    color: #000000;
-    padding: 0px 6px;
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .empty-state {
@@ -85,7 +71,7 @@
   }
   
   .empty-title {
-    font-size: 24px;
+    font-size: 34px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -96,7 +82,7 @@
   }
   
   .empty-desc {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 500;
     color: #666666;
   }
@@ -114,49 +100,93 @@
 
 <div class="agenda-container">
   {% if has_today or has_tomorrow %}
-    <!-- Today Column -->
-    <div class="column">
-      <div class="section-title">Today</div>
-      <div class="event-list">
-        {% if has_today %}
-          {% for event in today_events limit:2 %}
+    {% if has_today and has_tomorrow %}
+      <!-- Today Column -->
+      <div class="column">
+        <div class="section-title">Today</div>
+        <div class="event-list">
+          {% for event in today_events limit:3 %}
             <div class="event-item">
+              <span class="time-badge">{{ event.time }}</span>
               <div class="event-title">{{ event.title }}</div>
-              <div class="event-meta">
-                <span class="time-badge">{{ event.time }}</span>
-                {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
-                  <span class="status-badge">{{ event.status }}</span>
-                {% endif %}
-              </div>
             </div>
           {% endfor %}
-        {% else %}
-          <div class="empty-desc">No events scheduled.</div>
-        {% endif %}
+        </div>
       </div>
-    </div>
 
-    <!-- Tomorrow Column -->
-    <div class="column">
-      <div class="section-title">Tomorrow</div>
-      <div class="event-list">
-        {% if has_tomorrow %}
-          {% for event in tomorrow_events limit:2 %}
+      <!-- Tomorrow Column -->
+      <div class="column">
+        <div class="section-title">Tomorrow</div>
+        <div class="event-list">
+          {% for event in tomorrow_events limit:3 %}
             <div class="event-item">
+              <span class="time-badge">{{ event.time }}</span>
               <div class="event-title">{{ event.title }}</div>
-              <div class="event-meta">
-                <span class="time-badge">{{ event.time }}</span>
-                {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
-                  <span class="status-badge">{{ event.status }}</span>
-                {% endif %}
-              </div>
             </div>
           {% endfor %}
-        {% else %}
-          <div class="empty-desc">No events scheduled.</div>
-        {% endif %}
+        </div>
       </div>
-    </div>
+    {% elsif has_today %}
+      <!-- Today Column -->
+      <div class="column">
+        <div class="section-title">Today</div>
+        <div class="event-list">
+          {% for event in today_events limit:3 %}
+            <div class="event-item">
+              <span class="time-badge">{{ event.time }}</span>
+              <div class="event-title">{{ event.title }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Today Continued Column -->
+      <div class="column">
+        <div class="section-title">Today (Continued)</div>
+        <div class="event-list">
+          {% if today_events.size > 3 %}
+            {% for event in today_events limit:3 offset:3 %}
+              <div class="event-item">
+                <span class="time-badge">{{ event.time }}</span>
+                <div class="event-title">{{ event.title }}</div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-desc">No more events today.</div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <!-- Tomorrow Column -->
+      <div class="column">
+        <div class="section-title">Tomorrow</div>
+        <div class="event-list">
+          {% for event in tomorrow_events limit:3 %}
+            <div class="event-item">
+              <span class="time-badge">{{ event.time }}</span>
+              <div class="event-title">{{ event.title }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Tomorrow Continued Column -->
+      <div class="column">
+        <div class="section-title">Tomorrow (Continued)</div>
+        <div class="event-list">
+          {% if tomorrow_events.size > 3 %}
+            {% for event in tomorrow_events limit:3 offset:3 %}
+              <div class="event-item">
+                <span class="time-badge">{{ event.time }}</span>
+                <div class="event-title">{{ event.title }}</div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-desc">No more events tomorrow.</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
   {% else %}
     <!-- Empty State -->
     <div class="empty-state">
