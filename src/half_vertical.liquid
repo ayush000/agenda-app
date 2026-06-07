@@ -1,22 +1,165 @@
-<div class="p-4">
-  <div class="mb-4 border-b-2 border-black pb-2">
-    <h1 class="text-2xl font-black uppercase tracking-tight">Agenda</h1>
-  </div>
+<style>
+  .agenda-container {
+    padding: 24px 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
+  .section-container {
+    margin-bottom: 20px;
+  }
+  
+  .section-container:last-child {
+    margin-bottom: 0;
+  }
+  
+  .section-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #777777;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .event-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .event-title {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #000000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .event-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .time-badge {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 2px 6px;
+    font-size: 13px;
+    font-weight: 800;
+    border-radius: 3px;
+  }
+  
+  .status-badge {
+    border: 2px solid #000000;
+    color: #000000;
+    padding: 0px 6px;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+  }
 
-  <div class="space-y-4">
-    {% if events and events.size > 0 %}
-      {% for event in events limit:6 %}
-        <div>
-          <div class="text-sm font-bold text-gray-500 uppercase">{{ event.time }}</div>
-          <div class="text-lg font-bold leading-tight">{{ event.title }}</div>
-          {% if event.location %}
-            <div class="text-xs font-medium text-gray-400">@ {{ event.location }}</div>
-          {% endif %}
-        </div>
-      {% endfor %}
-    {% else %}
-      <div class="text-lg font-medium text-gray-500">No events.</div>
-    {% endif %}
-  </div>
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .empty-title {
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    color: #000000;
+  }
+  
+  .empty-desc {
+    font-size: 15px;
+    font-weight: 500;
+    color: #666666;
+  }
+</style>
+
+<div class="agenda-container">
+  {% if today_events and today_events.size > 0 %}
+    <!-- Today Section -->
+    <div class="section-container">
+      <div class="section-title">Today</div>
+      <div class="event-list">
+        {% for event in today_events limit:3 %}
+          <div class="event-item">
+            <div class="event-title">{{ event.title }}</div>
+            <div class="event-meta">
+              <span class="time-badge">{{ event.time }}</span>
+              {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
+                <span class="status-badge">{{ event.status }}</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if tomorrow_events and tomorrow_events.size > 0 %}
+    <!-- Tomorrow Section -->
+    <div class="section-container">
+      <div class="section-title">Tomorrow</div>
+      <div class="event-list">
+        {% for event in tomorrow_events limit:2 %}
+          <div class="event-item">
+            <div class="event-title">{{ event.title }}</div>
+            <div class="event-meta">
+              <span class="time-badge">{{ event.time }}</span>
+              {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
+                <span class="status-badge">{{ event.status }}</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Empty State -->
+  {% assign today_empty = false %}
+  {% if today_events == empty or today_events == nil or today_events.size == 0 %}
+    {% assign today_empty = true %}
+  {% endif %}
+
+  {% assign tomorrow_empty = false %}
+  {% if tomorrow_events == empty or tomorrow_events == nil or tomorrow_events.size == 0 %}
+    {% assign tomorrow_empty = true %}
+  {% endif %}
+
+  {% if today_empty and tomorrow_empty %}
+    <div class="empty-state">
+      <div class="empty-title">Clear Schedule</div>
+      <div class="empty-desc">No events scheduled for today or tomorrow.</div>
+    </div>
+  {% endif %}
 </div>
-

@@ -1,19 +1,121 @@
-<div class="p-3">
-  <div class="mb-2 border-b border-black pb-1">
-    <h1 class="text-xl font-black uppercase tracking-tighter">Agenda</h1>
-  </div>
+<style>
+  .agenda-container {
+    padding: 12px 14px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
+  .section-title {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #777777;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+  }
+  
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .event-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  
+  .event-title {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #000000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .event-meta {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  
+  .time-badge {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1px 5px;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 3px;
+  }
+  
+  .status-badge {
+    border: 1.5px solid #000000;
+    color: #000000;
+    padding: 0px 5px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+  }
 
-  <div class="space-y-2">
-    {% if events and events.size > 0 %}
-      {% for event in events limit:2 %}
-        <div class="overflow-hidden">
-          <div class="text-[10px] font-bold text-gray-500 uppercase leading-none mb-0.5">{{ event.time | split: " - " | first }}</div>
-          <div class="text-sm font-bold leading-tight truncate">{{ event.title }}</div>
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 10px;
+    text-align: center;
+  }
+  
+  .empty-title {
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    color: #000000;
+  }
+  
+  .empty-desc {
+    font-size: 12px;
+    font-weight: 500;
+    color: #666666;
+  }
+</style>
+
+<div class="agenda-container">
+  <div class="section-title">Today</div>
+  <div class="event-list">
+    {% if today_events and today_events.size > 0 %}
+      {% for event in today_events limit:2 %}
+        <div class="event-item">
+          <div class="event-title">{{ event.title }}</div>
+          <div class="event-meta">
+            <span class="time-badge">{{ event.time }}</span>
+            {% if event.status and event.status != 'confirmed' and event.status != 'CONFIRMED' %}
+              <span class="status-badge">{{ event.status }}</span>
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
     {% else %}
-      <div class="text-xs font-medium text-gray-400">Clear!</div>
+      <div class="empty-state">
+        <div class="empty-title">Clear</div>
+        <div class="empty-desc">No events today.</div>
+      </div>
     {% endif %}
   </div>
 </div>
-
