@@ -1,7 +1,22 @@
-<div class="layout layout--col layout--center">
-  <span class="title title--large">Quadrant</span>
+<div class="p-3">
+  <div class="mb-2 border-b border-black pb-1">
+    <h1 class="text-xl font-black uppercase tracking-tighter">Agenda</h1>
+  </div>
+
+  <div class="space-y-2">
+    {% if events and events.size > 0 %}
+      {% for event in events limit:2 %}
+        <div class="overflow-hidden">
+          <div class="text-[10px] font-bold text-gray-500 uppercase leading-none mb-0.5">{{ event.time | split: " - " | first }}</div>
+          <div class="text-sm font-bold leading-tight truncate">{{ event.title }}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="text-xs font-medium text-gray-400">Clear!</div>
+    {% endif %}
+  </div>
 </div>
 
 <div class="title_bar">
-  <span class="title">My Plugin</span>
+  <span class="title">Agenda</span>
 </div>

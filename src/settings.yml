@@ -4,13 +4,10 @@
 # Docs: https://help.trmnl.com/en/articles/10542599-importing-and-exporting-private-plugins#h_581fb988f0
 #
 ---
-strategy: polling
+strategy: webhook
 no_screen_padding: 'no'
 dark_mode: 'no'
-static_data: ''
-polling_verb: get
+static_data: '{"date": "Monday, June 7", "events": [{"title": "Morning Standup", "time": "09:00 AM - 09:30 AM", "location": "Zoom"}, {"title": "Design Review", "time": "11:00 AM - 12:00 PM", "location": "Conference Room A"}, {"title": "Lunch with Team", "time": "12:30 PM - 01:30 PM", "location": "The Bistro"}, {"title": "Focus Time", "time": "02:00 PM - 04:00 PM"}]}'
 framework_version: latest
-polling_url: ''
-polling_headers: ''
-name: My Plugin
+name: Daily Agenda
 refresh_interval: 1440

@@ -1,7 +1,47 @@
-<div class="layout layout--col layout--center">
-  <span class="title title--large">Hello, TRMNL!</span>
+<div class="p-8">
+  <!-- Header -->
+  <div class="flex items-end justify-between mb-8 border-b-4 border-black pb-4">
+    <h1 class="text-5xl font-black uppercase tracking-tighter">{{ date | default: "Daily Agenda" }}</h1>
+  </div>
+
+  <!-- Events List -->
+  <div class="space-y-8">
+    {% if events and events.size > 0 %}
+      {% for event in events %}
+        <div class="flex items-baseline">
+          <!-- Time Column -->
+          <div class="w-32 flex-shrink-0 text-right pr-6">
+            <div class="text-2xl font-bold leading-none">{{ event.time | split: " - " | first }}</div>
+            <div class="text-sm font-medium text-gray-500 mt-1 uppercase">{{ event.time | split: " - " | last }}</div>
+          </div>
+          
+          <!-- Separator Dot -->
+          <div class="relative flex items-center justify-center">
+            <div class="h-full w-0.5 bg-black absolute top-0 bottom-0"></div>
+            <div class="h-3 w-3 rounded-full bg-black z-10"></div>
+          </div>
+
+          <!-- Details Column -->
+          <div class="flex-grow pl-8">
+            <div class="text-3xl font-bold leading-tight">{{ event.title }}</div>
+            {% if event.location %}
+              <div class="text-xl font-medium text-gray-700 mt-1 flex items-center">
+                <span class="mr-2 opacity-50">@</span>{{ event.location }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="flex flex-col items-center justify-center py-24 text-center">
+        <div class="text-3xl font-bold text-black uppercase tracking-widest">Clear Schedule</div>
+        <div class="text-xl font-medium text-gray-600 mt-2">No upcoming events for today.</div>
+      </div>
+    {% endif %}
+  </div>
 </div>
 
 <div class="title_bar">
-  <span class="title">My Plugin</span>
+  <span class="title">Daily Agenda</span>
 </div>
+

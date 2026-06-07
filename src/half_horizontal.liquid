@@ -1,7 +1,29 @@
-<div class="layout layout--col layout--center">
-  <span class="title title--large">Half horizontal</span>
+<div class="p-4">
+  <div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+    <h1 class="text-2xl font-black uppercase tracking-tight">Today</h1>
+  </div>
+
+  <div class="space-y-3">
+    {% if events and events.size > 0 %}
+      {% for event in events limit:3 %}
+        <div class="flex items-center overflow-hidden whitespace-nowrap">
+          <div class="w-20 flex-shrink-0 text-right pr-3 border-r-2 border-black">
+            <div class="text-lg font-bold leading-none">{{ event.time | split: " - " | first }}</div>
+          </div>
+          <div class="flex-grow pl-3">
+            <div class="text-xl font-bold truncate">{{ event.title }}</div>
+          </div>
+        </div>
+      {% endfor %}
+      {% if events.size > 3 %}
+        <div class="text-sm font-bold text-gray-500 italic mt-1">+ {{ events.size | minus: 3 }} more events</div>
+      {% endif %}
+    {% else %}
+      <div class="text-lg font-medium text-gray-500">No events today.</div>
+    {% endif %}
+  </div>
 </div>
 
 <div class="title_bar">
-  <span class="title">My Plugin</span>
+  <span class="title">Daily Agenda</span>
 </div>
