@@ -1,6 +1,8 @@
 # 📅 TRMNL Daily Agenda App
 
-A custom, private plugin for the [TRMNL X](https://usetrmnl.com) e-ink display designed to showcase your daily schedule beautifully in multiple layouts. 
+[![TRMNL](https://github.com/ayush000/agenda-app/actions/workflows/trmnl.yml/badge.svg)](https://github.com/ayush000/agenda-app/actions/workflows/trmnl.yml)
+
+A custom, private plugin for the [TRMNL X](https://usetrmnl.com) e-ink display designed to showcase your daily schedule beautifully in multiple layouts.
 
 It renders event lists, times, locations, and status indicators using Liquid templates, with optional Python data pre-processing.
 
