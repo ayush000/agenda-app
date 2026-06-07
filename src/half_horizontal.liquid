@@ -34,6 +34,7 @@
   .event-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
   }
   
@@ -107,8 +108,8 @@
         <div class="event-list">
           {% for event in today_events limit:3 %}
             <div class="event-item">
-              <span class="time-badge">{{ event.time }}</span>
               <div class="event-title">{{ event.title }}</div>
+              <span class="time-badge">{{ event.time }}</span>
             </div>
           {% endfor %}
         </div>
@@ -120,8 +121,8 @@
         <div class="event-list">
           {% for event in tomorrow_events limit:3 %}
             <div class="event-item">
-              <span class="time-badge">{{ event.time }}</span>
               <div class="event-title">{{ event.title }}</div>
+              <span class="time-badge">{{ event.time }}</span>
             </div>
           {% endfor %}
         </div>
@@ -133,8 +134,8 @@
         <div class="event-list">
           {% for event in today_events limit:3 %}
             <div class="event-item">
-              <span class="time-badge">{{ event.time }}</span>
               <div class="event-title">{{ event.title }}</div>
+              <span class="time-badge">{{ event.time }}</span>
             </div>
           {% endfor %}
         </div>
@@ -147,8 +148,8 @@
           {% if today_events.size > 3 %}
             {% for event in today_events limit:3 offset:3 %}
               <div class="event-item">
-                <span class="time-badge">{{ event.time }}</span>
                 <div class="event-title">{{ event.title }}</div>
+                <span class="time-badge">{{ event.time }}</span>
               </div>
             {% endfor %}
           {% else %}
@@ -163,8 +164,8 @@
         <div class="event-list">
           {% for event in tomorrow_events limit:3 %}
             <div class="event-item">
-              <span class="time-badge">{{ event.time }}</span>
               <div class="event-title">{{ event.title }}</div>
+              <span class="time-badge">{{ event.time }}</span>
             </div>
           {% endfor %}
         </div>
@@ -177,8 +178,8 @@
           {% if tomorrow_events.size > 3 %}
             {% for event in tomorrow_events limit:3 offset:3 %}
               <div class="event-item">
-                <span class="time-badge">{{ event.time }}</span>
                 <div class="event-title">{{ event.title }}</div>
+                <span class="time-badge">{{ event.time }}</span>
               </div>
             {% endfor %}
           {% else %}

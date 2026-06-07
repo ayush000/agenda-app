@@ -29,6 +29,7 @@
   .event-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
   }
   
@@ -88,8 +89,8 @@
     {% if today_events and today_events.size > 0 %}
       {% for event in today_events limit:2 %}
         <div class="event-item">
-          <span class="time-badge">{{ event.time }}</span>
           <div class="event-title">{{ event.title }}</div>
+          <span class="time-badge">{{ event.time }}</span>
         </div>
       {% endfor %}
     {% else %}
