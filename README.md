@@ -13,7 +13,7 @@ It renders event lists, times, locations, and status indicators using Liquid tem
   - **Half Horizontal (`half_horizontal.liquid`)**: Two-column layout presenting Today and Tomorrow side-by-side. Dynamically splits into a two-column continuation (Today + Today Continued, up to 6 events) when one of the days has no events.
   - **Half Vertical (`half_vertical.liquid`)**: Stacked vertical list displaying up to 6 events with prioritized allocation for Today's schedule.
   - **Quadrant (`quadrant.liquid`)**: Ultra-compact 2-event daily view.
-- **Premium Aesthetics**: Pure self-contained CSS styles featuring custom `'Inter'` typography and clean black-and-white time badges.
+- **Premium Aesthetics**: Built on TRMNL's native framework classes for layout, typography, and time badges — lint-clean with no custom CSS for properties the framework already handles.
 - **Today-First Prioritization**: Automatically allocates empty Tomorrow slots to Today's events across vertical layouts, maximizing visibility.
 - **Zero Configuration Fallbacks**: Graceful empty states displaying a minimal "Clear Schedule" layout when there are no events.
 
@@ -37,8 +37,6 @@ It renders event lists, times, locations, and status indicators using Liquid tem
 ├── AGENTS.md               # Developer conventions & context for AI assistants
 ├── bin/
 │   └── trmnlp              # Local wrapper script for trmnlp CLI (Docker-compatible)
-├── images/
-│   └── logo.svg            # Logo asset loaded in templates
 └── src/
     ├── settings.yml        # Plugin metadata & default payload settings
     ├── full.liquid         # Template for full-screen layout

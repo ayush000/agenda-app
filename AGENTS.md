@@ -33,4 +33,4 @@ This project is a private plugin for the TRMNL X device, designed to serve as a 
 ## Conventions
 - **Naming**: Use descriptive names for variables in Liquid and Python.
 - **Liquid**: Keep logic in Liquid templates minimal; prefer doing complex data manipulation in `transform.py`.
-- **Styling**: Prefer self-contained, offline-compatible `<style>` blocks in each Liquid layout file using the `'Inter'` custom typeface, bold right-aligned time badges, and clean border styles rather than relying on external CDN stylesheets.
+- **Styling**: Use TRMNL native framework classes (e.g. `layout`, `layout--col`, `value--large`, `label--inverted`, `divider--h`, `flex--row`, `flex--between`) instead of custom CSS. Keep `<style>` blocks minimal — the linter (`trmnlp lint`) flags more than 6 total uses of `justify-content`, `padding`, `margin`, `background-color`, `border-radius`, `text-align`, `object-fit`, or `font-size` across all templates. Non-banned properties (e.g. `text-transform`, `letter-spacing`, `color`) are fine in small `<style>` blocks when no framework class covers them.
