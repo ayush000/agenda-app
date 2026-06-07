@@ -8,13 +8,14 @@ It renders event lists, times, locations, and status indicators using Liquid tem
 
 ## ✨ Features
 
-- **Multi-Layout Support**: Tailored styles for all four TRMNL display positions:
-  - **Full Screen (`full.liquid`)**: Detailed daily timeline view with time split indicators, visual progress dot-timeline, and locations.
-  - **Half Horizontal (`half_horizontal.liquid`)**: Side-by-side view with a vertical separation bar, showing up to 3 upcoming events and a "+N more" badge.
-  - **Half Vertical (`half_vertical.liquid`)**: Stacked vertical list showing up to 6 events with locations.
-  - **Quadrant (`quadrant.liquid`)**: Ultra-compact 2-event preview layout.
-- **Dynamic Headers**: Displays the current date or defaults gracefully to "Daily Agenda".
-- **Zero Configuration Fallbacks**: Displays a friendly "Clear Schedule" layout when there are no upcoming events.
+- **Multi-Layout Support**: Offline-compatible layouts aligned to a clean, premium design system:
+  - **Full Screen (`full.liquid`)**: High-contrast timeline showing up to 6 events with right-aligned time badges, dynamically prioritized to fill Today's slots first.
+  - **Half Horizontal (`half_horizontal.liquid`)**: Two-column layout presenting Today and Tomorrow side-by-side. Dynamically splits into a two-column continuation (Today + Today Continued, up to 6 events) when one of the days has no events.
+  - **Half Vertical (`half_vertical.liquid`)**: Stacked vertical list displaying up to 6 events with prioritized allocation for Today's schedule.
+  - **Quadrant (`quadrant.liquid`)**: Ultra-compact 2-event daily view.
+- **Premium Aesthetics**: Pure self-contained CSS styles featuring custom `'Inter'` typography and clean black-and-white time badges.
+- **Today-First Prioritization**: Automatically allocates empty Tomorrow slots to Today's events across vertical layouts, maximizing visibility.
+- **Zero Configuration Fallbacks**: Graceful empty states displaying a minimal "Clear Schedule" layout when there are no events.
 
 ---
 

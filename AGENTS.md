@@ -33,4 +33,4 @@ This project is a private plugin for the TRMNL X device, designed to serve as a 
 ## Conventions
 - **Naming**: Use descriptive names for variables in Liquid and Python.
 - **Liquid**: Keep logic in Liquid templates minimal; prefer doing complex data manipulation in `transform.py`.
-- **Styling**: Stick to TRMNL's built-in CSS utility classes as much as possible to ensure compatibility with the e-ink display's limitations.
+- **Styling**: Prefer self-contained, offline-compatible `<style>` blocks in each Liquid layout file using the `'Inter'` custom typeface, bold right-aligned time badges, and clean border styles rather than relying on external CDN stylesheets.
