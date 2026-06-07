@@ -5,7 +5,7 @@ dark_mode: 'no'
 static_data: '{"data": {"events": [{"end": "00:00", "start": "00:00", "status": "confirmed", "all_day": true, "calname": "FD68256B-EF89-4C6F-8A09-9397D89EAA51", "summary": "Pay Netflix subscription", "end_full": "2026-06-08T00:00:00.000Z", "date_time": "2026-06-07T12:00:00.000Z", "start_full": "2026-06-07T00:00:00.000Z"}, {"end": "11:00", "start": "10:45", "status": "confirmed", "all_day": false, "calname": "discovery@google.com", "summary": "Discovery daily standup", "end_full": "2026-06-07T08:00:00.000Z", "date_time": "2026-06-07T07:45:00.000Z", "start_full": "2026-06-07T07:45:00.000Z"}, {"end": "17:00", "start": "16:00", "status": "confirmed", "all_day": false, "calname": "biweekly@google.com", "summary": "Growth Product Bi-Weekly", "end_full": "2026-06-08T14:00:00.000Z", "date_time": "2026-06-08T13:00:00.000Z", "start_full": "2026-06-08T13:00:00.000Z"}, {"end": "22:00", "start": "17:00", "status": "confirmed", "all_day": false, "calname": "evening@google.com", "summary": "Growth Product evening chill", "end_full": "2026-06-08T19:00:00.000Z", "date_time": "2026-06-08T14:00:00.000Z", "start_full": "2026-06-08T14:00:00.000Z"}]}}'
 polling_verb: 
 framework_version: latest
-serverless_language: 
+serverless_language: python
 polling_url: 
 polling_headers: 
 polling_body: 
