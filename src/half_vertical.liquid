@@ -28,8 +28,8 @@
     <div class="divider--h"></div>
     {% for event in today_events limit:today_limit %}
       <div class="flex flex--row flex--between flex--center-y">
-        <div class="title--xlarge flex-auto">{{ event.title }}</div>
-        <span class="label label--inverted label--large flex-none">{{ event.time }}</span>
+        <div class="title--xlarge flex-auto">{{ event.summary }}</div>
+        <span class="label label--inverted label--large flex-none">{% if event.all_day %}All day{% else %}{{ event.start }}{% endif %}</span>
       </div>
     {% endfor %}
   {% endif %}
@@ -39,8 +39,8 @@
     <div class="divider--h"></div>
     {% for event in tomorrow_events limit:tomorrow_limit %}
       <div class="flex flex--row flex--between flex--center-y">
-        <div class="title--xlarge flex-auto">{{ event.title }}</div>
-        <span class="label label--inverted label--large flex-none">{{ event.time }}</span>
+        <div class="title--xlarge flex-auto">{{ event.summary }}</div>
+        <span class="label label--inverted label--large flex-none">{% if event.all_day %}All day{% else %}{{ event.start }}{% endif %}</span>
       </div>
     {% endfor %}
   {% endif %}

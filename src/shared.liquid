@@ -1,1 +1,16 @@
+{% assign today = 'now' | date: '%Y-%m-%d' %}
+{% assign tomorrow_ts = 'now' | date: '%s' | plus: 86400 %}
+{% assign tomorrow = tomorrow_ts | date: '%Y-%m-%d' %}
 
+{% assign today_events = "" | split: "" %}
+{% assign tomorrow_events = "" | split: "" %}
+
+{% for event in data.events %}
+  {% assign event_date = event.date_time | date: '%Y-%m-%d' %}
+  {% assign one_event = data.events | slice: forloop.index0, 1 %}
+  {% if event_date == today %}
+    {% assign today_events = today_events | concat: one_event %}
+  {% elsif event_date == tomorrow %}
+    {% assign tomorrow_events = tomorrow_events | concat: one_event %}
+  {% endif %}
+{% endfor %}
