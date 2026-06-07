@@ -1,94 +1,5 @@
 <style>
-  .agenda-container {
-    padding: 24px 20px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  
-  .section-container {
-    margin-bottom: 20px;
-  }
-  
-  .section-container:last-child {
-    margin-bottom: 0;
-  }
-  
-  .section-title {
-    font-size: 15px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #777777;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 4px;
-    margin-bottom: 12px;
-  }
-  
-  .event-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  
-  .event-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  
-  .event-title {
-    font-size: 28px;
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: #000000;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 1;
-  }
-  
-  .time-badge {
-    background-color: #000000;
-    color: #ffffff;
-    padding: 2px 6px;
-    font-size: 18px;
-    font-weight: 800;
-    border-radius: 3px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 20px;
-    text-align: center;
-  }
-  
-  .empty-title {
-    font-size: 36px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 3px solid #000000;
-    padding-bottom: 6px;
-    margin-bottom: 12px;
-    color: #000000;
-  }
-  
-  .empty-desc {
-    font-size: 21px;
-    font-weight: 500;
-    color: #666666;
-  }
+  .section-label { text-transform: uppercase; letter-spacing: 0.1em; }
 </style>
 
 {% assign total_slots = 6 %}
@@ -111,42 +22,33 @@
   {% assign has_tomorrow = true %}
 {% endif %}
 
-<div class="agenda-container">
+<div class="layout layout--col layout--start layout--stretch-x">
   {% if today_limit > 0 %}
-    <!-- Today Section -->
-    <div class="section-container">
-      <div class="section-title">Today</div>
-      <div class="event-list">
-        {% for event in today_events limit:today_limit %}
-          <div class="event-item">
-            <div class="event-title">{{ event.title }}</div>
-            <span class="time-badge">{{ event.time }}</span>
-          </div>
-        {% endfor %}
+    <div class="description section-label label--gray-out">Today</div>
+    <div class="divider--h"></div>
+    {% for event in today_events limit:today_limit %}
+      <div class="flex flex--row flex--between flex--center-y">
+        <div class="title--xlarge flex-auto">{{ event.title }}</div>
+        <span class="label label--inverted label--large flex-none">{{ event.time }}</span>
       </div>
-    </div>
+    {% endfor %}
   {% endif %}
 
   {% if tomorrow_limit > 0 and has_tomorrow %}
-    <!-- Tomorrow Section -->
-    <div class="section-container">
-      <div class="section-title">Tomorrow</div>
-      <div class="event-list">
-        {% for event in tomorrow_events limit:tomorrow_limit %}
-          <div class="event-item">
-            <div class="event-title">{{ event.title }}</div>
-            <span class="time-badge">{{ event.time }}</span>
-          </div>
-        {% endfor %}
+    <div class="description section-label label--gray-out">Tomorrow</div>
+    <div class="divider--h"></div>
+    {% for event in tomorrow_events limit:tomorrow_limit %}
+      <div class="flex flex--row flex--between flex--center-y">
+        <div class="title--xlarge flex-auto">{{ event.title }}</div>
+        <span class="label label--inverted label--large flex-none">{{ event.time }}</span>
       </div>
-    </div>
+    {% endfor %}
   {% endif %}
 
-  <!-- Empty State -->
   {% if today_limit == 0 and tomorrow_limit == 0 %}
-    <div class="empty-state">
-      <div class="empty-title">Clear Schedule</div>
-      <div class="empty-desc">No events scheduled for today or tomorrow.</div>
+    <div class="flex flex--col">
+      <div class="title--xxlarge section-label">Clear Schedule</div>
+      <div class="description">No events scheduled for today or tomorrow.</div>
     </div>
   {% endif %}
 </div>
