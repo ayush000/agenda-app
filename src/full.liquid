@@ -10,9 +10,8 @@
       {% for event in events %}
         <div class="flex items-baseline">
           <!-- Time Column -->
-          <div class="w-32 flex-shrink-0 text-right pr-6">
-            <div class="text-2xl font-bold leading-none">{{ event.time | split: " - " | first }}</div>
-            <div class="text-sm font-medium text-gray-500 mt-1 uppercase">{{ event.time | split: " - " | last }}</div>
+          <div class="w-48 flex-shrink-0 text-right pr-6">
+            <div class="text-2xl font-bold leading-none">{{ event.time }}</div>
           </div>
           
           <!-- Separator Dot -->
@@ -41,7 +40,4 @@
   </div>
 </div>
 
-<div class="title_bar">
-  <span class="title">Daily Agenda</span>
-</div>
 
